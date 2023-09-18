@@ -9,6 +9,20 @@ const userSchema = mongoose.Schema(
       trim: true,
       maxLength: [50, "Name is too large"],
     },
+    photoUrl: {
+      type: String,
+    },
+    userName: {
+      type: String,
+      require: [true, "Please provide your userName"],
+      trim: true,
+      maxLength: [20, "userName is too large"],
+    },
+    role: {
+      type: String,
+      default: "freelancer",
+      enum: ["freelancer", "client", "admin"],
+    },
     email: {
       type: String,
       require: [true, "Email is require"],
@@ -17,43 +31,15 @@ const userSchema = mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    contactNumber: {
-      type: String,
-      validate: [validator.isMobilePhone, "Please provide valid Number"],
-      require: [true, "Number is require"],
-    },
     password: {
       type: String,
       require: true,
-    },
-    // confirmPassword: {
-    //   type: String,
-    //   require: true,
-    //   validate: {
-    //     validator: function (value) {
-    //       return value === this.password;
-    //     },
-    //     message: "Password don't match",
-    //   },
-    // },
-    role: {
-      type: String,
-      default: "buyer",
-      enum: ["admin", "buyer"],
-    },
-    imageURl: {
-      type: String,
     },
   },
   {
     timestamps: true,
   }
 );
-
-// userSchema.pre("save", function (next) {
-//   this.confirmPassword = undefined;
-//   next();
-// });
 
 const User = mongoose.model("User", userSchema);
 
