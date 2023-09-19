@@ -1,8 +1,8 @@
-const Freelancers = require("../models/Freelancers");
+const Clients = require("../models/Clients");
 
-exports.getFreelancers = async (req, res) => {
+exports.getClients = async (req, res) => {
   try {
-    const result = await Freelancers.find({});
+    const result = await Clients.find({});
 
     res.status(200).json({
       status: "success",
@@ -16,9 +16,9 @@ exports.getFreelancers = async (req, res) => {
   }
 };
 
-exports.getFreelancer = async (req, res) => {
+exports.getClient = async (req, res) => {
   try {
-    const user = await Freelancers.findOne({ email: req.user.email });
+    const user = await Clients.findOne({ email: req.user.email });
 
     res.status(200).json({
       status: "success",
