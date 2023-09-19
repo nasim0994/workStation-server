@@ -20,6 +20,9 @@ const freelancerSchema = mongoose.Schema(
     photoUrl: {
       type: String,
     },
+    bannerUrl: {
+      type: String,
+    },
     role: {
       type: String,
       default: "freelancer",
@@ -31,15 +34,10 @@ const freelancerSchema = mongoose.Schema(
       type: String,
     },
     location: {
-      type: String,
+      type: Object,
     },
-    totalRating: {
-      type: String,
-      default: "0",
-    },
-    averageRating: {
-      type: String,
-      default: "0",
+    rating: {
+      type: Object,
     },
     hourly: {
       type: String,
@@ -48,7 +46,10 @@ const freelancerSchema = mongoose.Schema(
       type: Array,
     },
     projects: {
-      type: Array,
+      type: Object,
+    },
+    saveItems: {
+      type: Object,
     },
   },
   {
