@@ -1,14 +1,15 @@
 {
-  "name": "Usnota",
+  "name": "workstation",
   "version": "1.0.0",
-  "description": "Your Trusted Online Shop",
+  "description": "Choose your favorite job",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "NR",
+  "author": "Nasim Uddin",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

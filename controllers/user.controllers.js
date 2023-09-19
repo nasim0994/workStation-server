@@ -1,3 +1,5 @@
+const Clients = require("../models/Clients");
+const Freelancers = require("../models/Freelancers");
 const User = require("../models/Users");
 const { createJsonWebToken } = require("../utils/jsonwebtoken");
 const { sendMailByNodeMailer } = require("../utils/sendMail");
@@ -68,30 +70,31 @@ exports.processRegister = async (req, res) => {
     const token = createJsonWebToken(newUser, "10m");
 
     // 4. send verify link by email
-    const mailData = {
-      email: newUser.email,
-      subject: "Verification Email by usnotashop",
-      html: `
-                <h2>Hello ${newUser.name}!</h2>
-                <div>
-                    <p>Please Click the link and Verify your Usnota account</p>
-                    <a style="font-weight:600;color:#e11e63; text-decoration:underline" href="http://localhost:5000/api/v1/user/register/${token}" target="_blank">Click here</a>
-                </div>
-            `,
-    };
+    // const mailData = {
+    //   email: newUser.email,
+    //   subject: "Verification Email by usnotashop",
+    //   html: `
+    //             <h2>Hello ${newUser.name}!</h2>
+    //             <div>
+    //                 <p>Please Click the link and Verify your Usnota account</p>
+    //                 <a style="font-weight:600;color:#e11e63; text-decoration:underline" href="http://localhost:5000/api/v1/user/register/${token}" target="_blank">Click here</a>
+    //             </div>
+    //         `,
+    // };
 
-    const info = await sendMailByNodeMailer(mailData);
+    // const info = await sendMailByNodeMailer(mailData);
 
-    if (!info?.messageId) {
-      return res.status(400).json({
-        status: "fail",
-        message: "Email send fail",
-      });
-    }
+    // if (!info?.messageId) {
+    //   return res.status(400).json({
+    //     status: "fail",
+    //     message: "Email send fail",
+    //   });
+    // }
 
     res.status(200).json({
       status: "success",
       message: `Please go to your email ${newUser.email} and verify your Usnota account`,
+      token,
     });
   } catch (error) {
     res.status(400).json({
@@ -129,6 +132,14 @@ exports.registerUser = async (req, res) => {
       }
 
       await User.create(decoded);
+
+      if (decoded.role === "freelancer") {
+        await Freelancers.create(decoded);
+      }
+
+      if (decoded.role === "client") {
+        await Clients.create(decoded);
+      }
 
       res.send(`<div style="height:100vh;width:100%;display:flex;align-items: center;justify-content: center;">
       <h4>account verify successful, please login now</h4>

@@ -6,6 +6,7 @@ const port = process.env.port || 5001;
 
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
+const freelancerRoutes = require("./routes/freelancer.routes");
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ mongoose.connect(process.env.DB_URL).then(() => {
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/freelancer", freelancerRoutes);
 
 app.get("/", (req, res) => {
   res.send(`Server is Running on port ${port}`);
