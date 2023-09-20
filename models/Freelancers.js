@@ -13,6 +13,11 @@ const freelancerSchema = mongoose.Schema(
     },
     userName: {
       type: String,
+      require: [true, "userName is require"],
+      unique: [
+        true,
+        "Already use this userName, Please provide a unique userName",
+      ],
     },
     name: {
       type: String,
