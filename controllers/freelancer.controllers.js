@@ -31,3 +31,21 @@ exports.getFreelancer = async (req, res) => {
     });
   }
 };
+
+exports.getFreelancerByUserName = async (req, res) => {
+  try {
+    const freelancer = await Freelancers.findOne({
+      userName: req.params.params,
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: freelancer,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error: error.message,
+    });
+  }
+};
