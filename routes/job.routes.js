@@ -6,8 +6,8 @@ const {
   getBulkJobs,
 } = require("../controllers/job.controllers");
 
-// router.get("/all-jobs", getJobs);
+router.get("/all-jobs", getJobs);
 router.get("/bulk-jobs", getBulkJobs);
-// router.get("/:id", getJob);
+router.get("/:id", getJob);
 
 module.exports = router;
