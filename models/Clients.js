@@ -20,28 +20,26 @@ const clientSchema = mongoose.Schema(
     photoUrl: {
       type: String,
     },
+    bannerUrl: {
+      type: String,
+    },
     role: {
       type: String,
       default: "client",
     },
-    description: {
-      type: String,
-    },
     location: {
-      type: String,
+      type: Object,
     },
-    totalRating: {
-      type: String,
-      default: "0",
+    rating: {
+      type: Object,
     },
-    averageRating: {
-      type: String,
-      default: "0",
-    },
-    freelancerFeedback: {
-      type: Array,
+    saveItems: {
+      type: Object,
     },
     jobs: {
+      type: Object,
+    },
+    freelancerFeedback: {
       type: Array,
     },
   },
