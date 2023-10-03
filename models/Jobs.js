@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const jobSchema = mongoose.Schema(
   {
+    postedBy: {
+      type: String,
+    },
     title: {
       type: String,
     },

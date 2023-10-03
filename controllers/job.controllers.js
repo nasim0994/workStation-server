@@ -32,6 +32,24 @@ exports.getBulkJobs = async (req, res) => {
   }
 };
 
+exports.getMyJobs = async (req, res) => {
+  try {
+    const result = await Jobs.find({
+      postedBy: req.user.email,
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error: error.message,
+    });
+  }
+};
+
 exports.getJob = async (req, res) => {
   try {
     const result = await Jobs.findOne({ _id: req.params.id });
