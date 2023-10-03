@@ -13,7 +13,6 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: String,
-    default: "freelancer",
     enum: ["freelancer", "client", "admin"],
   },
   email: {
