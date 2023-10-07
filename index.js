@@ -6,6 +6,7 @@ const port = process.env.port || 5001;
 
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
+const categoryRoutes = require("./routes/category.routes");
 const freelancerRoutes = require("./routes/freelancer.routes");
 const jobRoutes = require("./routes/job.routes");
 const clientRoutes = require("./routes/client.routes");
@@ -21,6 +22,7 @@ mongoose.connect(process.env.DB_URL).then(() => {
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/freelancer", freelancerRoutes);
 app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/client", clientRoutes);
