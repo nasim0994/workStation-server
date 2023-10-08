@@ -2,21 +2,24 @@ const Jobs = require("../models/Jobs");
 
 exports.getJobs = async (req, res) => {
   try {
-    const { skills, jobType, city, categories } = req.query;
+    const { skills, jobType, locations, categories } = req.query;
 
     let querys = {};
+
+    if (categories && categories?.length > 2) {
+      querys.category = { $in: JSON.parse(categories) };
+    }
+
+    if (jobType && jobType?.length > 2) {
+      querys.jobType = { $in: JSON.parse(jobType) };
+    }
 
     if (skills && skills?.length > 2) {
       querys.skills = { $in: JSON.parse(skills) };
     }
-    if (jobType) {
-      querys.jobType = jobType;
-    }
-    if (city) {
-      querys.city = city;
-    }
-    if (categories && categories?.length > 2) {
-      querys.category = { $in: JSON.parse(categories) };
+
+    if (locations && locations?.length > 2) {
+      querys.city = { $in: JSON.parse(locations) };
     }
 
     const result = await Jobs.find(querys);
