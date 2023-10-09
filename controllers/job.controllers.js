@@ -2,7 +2,7 @@ const Jobs = require("../models/Jobs");
 
 exports.getJobs = async (req, res) => {
   try {
-    const { jobType, locations, categories, pageNumber } = req.query;
+    const { jobType, locations, categories, pageNumber, limit } = req.query;
 
     let querys = {};
 
@@ -19,8 +19,8 @@ exports.getJobs = async (req, res) => {
     }
 
     const result = await Jobs.find(querys)
-      .skip((pageNumber - 1) * 2)
-      .limit(2);
+      .skip((pageNumber - 1) * parseInt(limit))
+      .limit(parseInt(limit));
 
     const totalJobs = await Jobs.find(querys);
 
