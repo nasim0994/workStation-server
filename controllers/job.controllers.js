@@ -2,7 +2,7 @@ const Jobs = require("../models/Jobs");
 
 exports.getJobs = async (req, res) => {
   try {
-    const { jobType, locations, categories, pageNumber, limit } = req.query;
+    const { jobType, locations, categories } = req.query;
 
     let querys = {};
 
@@ -18,18 +18,11 @@ exports.getJobs = async (req, res) => {
       querys.city = { $in: JSON.parse(locations) };
     }
 
-    const result = await Jobs.find(querys)
-      .skip((pageNumber - 1) * parseInt(limit))
-      .limit(parseInt(limit));
-
-    const totalJobs = await Jobs.find(querys);
+    const result = await Jobs.find(querys);
 
     res.status(200).json({
       status: "success",
-      data: {
-        total: totalJobs?.length,
-        jobs: result,
-      },
+      jobs: result,
     });
   } catch (error) {
     res.status(400).json({
