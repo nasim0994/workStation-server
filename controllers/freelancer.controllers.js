@@ -5,11 +5,15 @@ exports.getFreelancers = async (req, res) => {
     const { limit, page } = req.query;
     const skip = (page - 1) * parseInt(limit);
 
-    const { categories } = req.query;
+    const { categories, skills } = req.query;
     let query = {};
 
     if (categories && categories?.length > 2) {
-      query.category = { $in: JSON.parse(categories) };
+      query.category = { $in: categories };
+    }
+
+    if (skills && skills?.length > 2) {
+      query.skills = { $in: JSON.parse(skills) };
     }
 
     const result = await Freelancers.find(query)
@@ -17,10 +21,12 @@ exports.getFreelancers = async (req, res) => {
       .limit(parseInt(limit));
 
     const total = await Freelancers.countDocuments(query);
+    const pages = Math.ceil(parseInt(total) / parseInt(limit));
 
     res.status(200).json({
       status: "success",
       total,
+      pages,
       data: result,
     });
   } catch (error) {
