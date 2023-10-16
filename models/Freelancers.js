@@ -28,10 +28,6 @@ const freelancerSchema = mongoose.Schema(
     bannerUrl: {
       type: String,
     },
-    role: {
-      type: String,
-      default: "freelancer",
-    },
     tagline: {
       type: String,
     },
@@ -45,6 +41,9 @@ const freelancerSchema = mongoose.Schema(
       type: Object,
     },
     hourly: {
+      type: String,
+    },
+    category: {
       type: String,
     },
     clientFeedback: {

@@ -2,10 +2,25 @@ const Freelancers = require("../models/Freelancers");
 
 exports.getFreelancers = async (req, res) => {
   try {
-    const result = await Freelancers.find({});
+    const { limit, page } = req.query;
+    const skip = (page - 1) * parseInt(limit);
+
+    const { categories } = req.query;
+    let query = {};
+
+    if (categories && categories?.length > 2) {
+      query.category = { $in: JSON.parse(categories) };
+    }
+
+    const result = await Freelancers.find(query)
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const total = await Freelancers.countDocuments(query);
 
     res.status(200).json({
       status: "success",
+      total,
       data: result,
     });
   } catch (error) {
