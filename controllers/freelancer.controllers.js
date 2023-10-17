@@ -70,3 +70,22 @@ exports.getFreelancerByUserName = async (req, res) => {
     });
   }
 };
+
+exports.getExpertFreelancers = async (req, res) => {
+  try {
+    const freelancer = await Freelancers.find({
+      "rating.average": { $gte: "4" },
+    });
+
+    res.status(200).json({
+      status: "success",
+      total: freelancer?.length,
+      data: freelancer,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error: error.message,
+    });
+  }
+};

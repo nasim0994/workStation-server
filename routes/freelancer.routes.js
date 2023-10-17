@@ -5,9 +5,11 @@ const {
   getFreelancers,
   getFreelancer,
   getFreelancerByUserName,
+  getExpertFreelancers,
 } = require("../controllers/freelancer.controllers");
 
 router.get("/all-freelancers", getFreelancers);
+router.get("/expert", getExpertFreelancers);
 router.get("/me", verifyToken, getFreelancer);
 router.get("/:params", getFreelancerByUserName);
 
